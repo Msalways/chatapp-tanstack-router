@@ -1,11 +1,10 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useEffect } from 'react'
-import logo from '../logo.svg'
 import { useValidationUserSession } from '@/lib/hooks/auth/useValidateUserSession'
 
 export const Route = createFileRoute('/')({
   component: App,
-  beforeLoad: ({ params, context }) => {
+  beforeLoad: ({ context }) => {
     const { queryClient } = context
     queryClient.ensureQueryData({
       queryKey: ['validate-user-session'],
@@ -15,10 +14,10 @@ export const Route = createFileRoute('/')({
 
 function App() {
   const navigate = useNavigate()
-  const { data, error, isLoading } = useValidationUserSession()
+  const { data } = useValidationUserSession()
   useEffect(() => {
     if (data) {
-      navigate({ to: '/Chat' })
+      navigate({ to: '/Chat', params: { chatId: '' } })
     }
   }, [data])
   return (

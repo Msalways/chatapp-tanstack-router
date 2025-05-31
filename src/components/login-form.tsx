@@ -30,11 +30,7 @@ export function LoginForm({
         console.log(value)
 
         await login(value.email, value.password)
-
-        // Optionally redirect or show success message
-      } catch (err) {
-        console.error('Login failed:', err)
-        // Handle login error (e.g., show error toast)
+      } catch (err: any) {
         toast.error(err?.response?.data?.message ?? 'Login failed')
       }
     },

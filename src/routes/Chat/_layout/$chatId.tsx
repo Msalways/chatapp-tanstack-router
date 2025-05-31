@@ -17,7 +17,7 @@ export const Route = createFileRoute('/Chat/_layout/$chatId')({
 
 function RouteComponent() {
   const { chatId } = Route.useParams()
-  const { selectedChatId, setSelectedChatId, chats } = useChat()
+  const { setSelectedChatId, chats } = useChat()
   const [chatName, setChatName] = useState('')
   const queryClient = useQueryClient()
 
@@ -28,8 +28,6 @@ function RouteComponent() {
     isLoading: isLoadingMessages,
     error: messagesError,
     refetch,
-    dataUpdatedAt,
-    isFetching,
   } = useListChatMessages(chatId)
 
   useEffect(() => {
@@ -142,18 +140,28 @@ function RouteComponent() {
 
           {messages.length > 0 && (
             <div className="py-4">
-              {messages.map((msg, index) => (
-                <div key={`${chatId}-${msg.id}-${index}`} className="mb-1">
-                  <div className="text-xs text-gray-400 px-4">
-                    Msg ID: {msg.id} | Chat: {chatId}
+              {messages.map(
+                (
+                  msg: {
+                    id: string
+                    role: string
+                    message: string
+                    createdAt: Date
+                  },
+                  index: number,
+                ) => (
+                  <div key={`${chatId}-${msg.id}-${index}`} className="mb-1">
+                    <div className="text-xs text-gray-400 px-4">
+                      Msg ID: {msg.id} | Chat: {chatId}
+                    </div>
+                    <ChatMessage
+                      role={msg.role}
+                      content={msg.message}
+                      timestamp={msg.createdAt}
+                    />
                   </div>
-                  <ChatMessage
-                    role={msg.role}
-                    content={msg.message}
-                    timestamp={msg.createdAt}
-                  />
-                </div>
-              ))}
+                ),
+              )}
 
               {/* Typing Indicator */}
               {(isTyping || isPending) && (

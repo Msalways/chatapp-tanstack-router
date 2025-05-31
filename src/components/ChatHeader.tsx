@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface ChatHeaderProps {
   title: string
   subtitle?: string

@@ -1,15 +1,14 @@
 // src/routes/Chat/index.tsx - Keep your original route path
 import { MessageCircle, Plus } from 'lucide-react'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { toast } from 'sonner'
 import { useChat } from '@/lib/context/ChatContext'
 import { listChatsOfAnUser } from '@/api/chatApi'
-import useListAllChats from '@/lib/hooks/chat/useListAllChats'
-import { toast } from 'sonner'
 
 // Change back to your original route path
 export const Route = createFileRoute('/Chat/_layout/')({
   component: RouteComponent,
-  beforeLoad: ({ params, context }) => {
+  beforeLoad: ({ context }) => {
     const { queryClient } = context
     queryClient.ensureQueryData({
       queryKey: ['list-all-chats'],
@@ -23,11 +22,15 @@ function RouteComponent() {
   const { createNewChat, updateChatName, chats, isLoadingChats } = useChat()
   // const { data: chats, isLoading, error } = useListAllChats()
 
+  // type NewChatResponse = {
+  //   chat?: { id?: string; name?: string }
+  //   message?: string
+  // }
   const handleCreateNewChat = async () => {
     try {
-      const newChat = await createNewChat()
-      console.log(newChat)
+      const newChat: any = await createNewChat()
 
+      // If createNewChat returns void, newChat will be undefined
       const id = newChat?.chat?.id
       console.log(id)
 
@@ -45,7 +48,7 @@ function RouteComponent() {
       try {
         await updateChatName(chatId, { name: newName.trim() })
         toast.success('Chat renamed successfully')
-      } catch (err) {
+      } catch (err: any) {
         console.error('Rename failed:', err)
         toast.error(err?.response?.data?.message ?? 'Rename failed')
       }

@@ -1,9 +1,9 @@
-import { User, Bot } from 'lucide-react'
+import { Bot, User } from 'lucide-react'
 
 interface ChatMessageProps {
   role: string
   content: string
-  timestamp?: string
+  timestamp?: Date
 }
 
 export function ChatMessage({ role, content, timestamp }: ChatMessageProps) {

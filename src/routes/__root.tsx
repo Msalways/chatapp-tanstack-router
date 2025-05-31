@@ -1,8 +1,6 @@
 import {
   Outlet,
   createRootRouteWithContext,
-  useMatch,
-  useMatches,
   useRouterState,
 } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'

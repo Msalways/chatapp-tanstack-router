@@ -31,12 +31,11 @@ export function SignupForm({
     onSubmit: async ({ value }) => {
       try {
         const data = await mutate.mutateAsync({ email: value.email })
-        console.log(data)
         Swal.fire({
           icon: 'success',
           title: 'Success',
           text: 'User created successfully & password was copied to clipboard',
-          button: 'Login',
+          confirmButtonText: 'Login',
           backdrop: false,
         }).then((response) => {
           if (response.isConfirmed) {
@@ -44,7 +43,7 @@ export function SignupForm({
             navigate({ to: '/Login' })
           }
         })
-      } catch (err) {
+      } catch (err: any) {
         console.error('SignUp failed:', err)
         // Handle login error (e.g., show error toast)
         toast.error(err?.response?.data?.message ?? 'SignUp failed')
