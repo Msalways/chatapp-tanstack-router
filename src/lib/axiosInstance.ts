@@ -1,8 +1,11 @@
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 import Swal from 'sweetalert2'
+import type { AxiosError } from 'axios'
 import { userLogout } from '@/api/AuthApi'
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL
+
+console.log(backendUrl)
 
 const axiosInstance = axios.create({
   baseURL: backendUrl,
