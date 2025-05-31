@@ -1,1 +1,0 @@
-import{u as s,a as e,r as o,j as n}from"./index-B0hcWFqL.js";const c=function(){const a=s(),{data:t}=e();return o.useEffect(()=>{t&&a({to:"/Chat",params:{chatId:""}})},[t]),n.jsx("div",{className:"text-center"})};export{c as component};
